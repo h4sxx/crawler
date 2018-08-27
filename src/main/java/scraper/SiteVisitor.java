@@ -17,15 +17,14 @@ public class SiteVisitor {
 	 * @throws MalformedURLException
 	 */
 	public String visit(String url) {
-		String htmlText = null;
+		StringBuilder htmlTextBuilder = new StringBuilder();
 		URL oracle;
 		try {
 			oracle = new URL(url);
 			try (BufferedReader in = new BufferedReader(new InputStreamReader(oracle.openStream()))) {
-				htmlText = "";
 				String inputLine;
 				while ((inputLine = in.readLine()) != null)
-					htmlText += inputLine;
+					htmlTextBuilder.append(inputLine);
 				in.close();
 			} catch (IOException ioExep) {
 				ioExep.printStackTrace();
@@ -33,7 +32,7 @@ public class SiteVisitor {
 		} catch (MalformedURLException malformExep) {
 			malformExep.printStackTrace();
 		}
-		return htmlText;
+		return htmlTextBuilder.toString();
 	}
 
 	public static void main(String[] args) {
